@@ -1,0 +1,23 @@
+System.ArgumentException was unhandled by user code
+  Message=The specified store provider cannot be found in the configuration, or is not valid.
+  Source=System.Data.Entity
+  StackTrace:
+       at System.Data.EntityClient.EntityConnection.GetFactory(String providerString)
+       at System.Data.EntityClient.EntityConnection.ChangeConnectionString(String newConnectionString)
+       at System.Data.EntityClient.EntityConnection..ctor(String connectionString)
+       at System.Data.Objects.ObjectContext.CreateEntityConnection(String connectionString)
+       at System.Data.Objects.ObjectContext..ctor(String connectionString)
+       at System.Data.Objects.ObjectContext..ctor(String connectionString, String defaultContainerName)
+       at PhotoService.PhotoManagerEntities..ctor() in D:\ChandraPersonal\edusocially\Arya\Upload files using a WCF REST Service\C#\PhotoService\PhotoManager.Designer.cs:line 34
+       at PhotoService.DataAcess..ctor() in D:\ChandraPersonal\edusocially\Arya\Upload files using a WCF REST Service\C#\PhotoService\DataAcess.cs:line 29
+       at PhotoService.PhotoManager.GetPhotos() in D:\ChandraPersonal\edusocially\Arya\Upload files using a WCF REST Service\C#\PhotoService\PhotoManager.cs:line 35
+       at SyncInvokeGetPhotos(Object , Object[] , Object[] )
+       at System.ServiceModel.Dispatcher.SyncMethodInvoker.Invoke(Object instance, Object[] inputs, Object[]& outputs)
+       at System.ServiceModel.Dispatcher.DispatchOperationRuntime.InvokeBegin(MessageRpc& rpc)
+  InnerException: System.ArgumentException
+       Message=Unable to find the requested .Net Framework Data Provider.  It may not be installed.
+       Source=System.Data
+       StackTrace:
+            at System.Data.Common.DbProviderFactories.GetFactory(String providerInvariantName)
+            at System.Data.EntityClient.EntityConnection.GetFactory(String providerString)
+       InnerException: 
