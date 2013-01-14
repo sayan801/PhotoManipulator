@@ -65,55 +65,98 @@ namespace PhotoServiceClient
 
         private void btnStartUpload_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFileName.Text))
-            {
-                MessageBox.Show("Specifiy a file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtFileName.Focus();
-            }
-            else if (!File.Exists(txtFileName.Text))
-            {
-                string message = string.Format("Unable to find '{0}'. Please check the file name and try again.", txtFileName.Text);
-                MessageBox.Show(message, "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtFileName.Focus();
-            }
-            else if (string.IsNullOrWhiteSpace(txtDescription.Text))
-            {
-                MessageBox.Show("Specify the description of the file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtDescription.Focus();
-            }
-            else
-            {
-                try
-                {
-                    // Create the REST request.
-                    string url = ConfigurationManager.AppSettings["serviceUrl"];
-                    string requestUrl = string.Format("{0}/UploadPhoto/{1}/{2}", url, System.IO.Path.GetFileName(txtFileName.Text), txtDescription.Text);
+            //define the connection reference 
+            MySql.Data.MySqlClient.MySqlConnection msqlConnection = new MySql.Data.MySqlClient.MySqlConnection("server=localhost; user id=root;password=technicise;database=photodb;persist security info=false");
 
-                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestUrl);
-                    request.Method = "POST";
-                    request.ContentType = "text/plain";
+            //open the connection
 
-                    byte[] fileToSend = File.ReadAllBytes(txtFileName.Text);
-                    request.ContentLength = fileToSend.Length;
+            if (msqlConnection.State != System.Data.ConnectionState.Open)
 
-                    using (Stream requestStream = request.GetRequestStream())
-                    {
-                        // Send the file as body request.
-                        requestStream.Write(fileToSend, 0, fileToSend.Length);
-                        requestStream.Close();
-                    }
+                msqlConnection.Open();
 
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                        Console.WriteLine("HTTP/{0} {1} {2}", response.ProtocolVersion, (int)response.StatusCode, response.StatusDescription);
+            //define the command reference
 
-                    MessageBox.Show("File sucessfully uploaded.", "Upload", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.DialogResult = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error during file upload: " + ex.Message, "Upload", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            MySql.Data.MySqlClient.MySqlCommand msqlcommand = new MySql.Data.MySqlClient.MySqlCommand();
+
+            //define the connection used by the command object
+
+            msqlcommand.Connection = msqlConnection;
+
+            //define the command text
+
+            msqlcommand.CommandText = "insert into pics(Name, Description, ImgFile)" + "values(@Name,@Description,@ImgFile)";
+
+            //add values provided by user
+
+            msqlcommand.Parameters.AddWithValue("@Name", txtFileName.Text);
+
+            msqlcommand.Parameters.AddWithValue("@Description", txtDescription.Text);
+
+            msqlcommand.Parameters.AddWithValue("@ImgFile", imgPhoto);
+
+            msqlcommand.ExecuteNonQuery();
+
+            //close the connection
+
+            msqlConnection.Close();
+
+            //empty the text boxes
+
+            //rollTextBox.Text = null;
+
+            //nameTextBox.Text = null;
+
+            MessageBox.Show("Info Added");
+
+        //    if (string.IsNullOrWhiteSpace(txtFileName.Text))
+        //    {
+        //        MessageBox.Show("Specifiy a file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //        txtFileName.Focus();
+        //    }
+        //    else if (!File.Exists(txtFileName.Text))
+        //    {
+        //        string message = string.Format("Unable to find '{0}'. Please check the file name and try again.", txtFileName.Text);
+        //        MessageBox.Show(message, "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //        txtFileName.Focus();
+        //    }
+        //    else if (string.IsNullOrWhiteSpace(txtDescription.Text))
+        //    {
+        //        MessageBox.Show("Specify the description of the file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //        txtDescription.Focus();
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            // Create the REST request.
+        //            string url = ConfigurationManager.AppSettings["serviceUrl"];
+        //            string requestUrl = string.Format("{0}/UploadPhoto/{1}/{2}", url, System.IO.Path.GetFileName(txtFileName.Text), txtDescription.Text);
+
+        //            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestUrl);
+        //            request.Method = "POST";
+        //            request.ContentType = "text/plain";
+
+        //            byte[] fileToSend = File.ReadAllBytes(txtFileName.Text);
+        //            request.ContentLength = fileToSend.Length;
+
+        //            using (Stream requestStream = request.GetRequestStream())
+        //            {
+        //                // Send the file as body request.
+        //                requestStream.Write(fileToSend, 0, fileToSend.Length);
+        //                requestStream.Close();
+        //            }
+
+        //            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        //                Console.WriteLine("HTTP/{0} {1} {2}", response.ProtocolVersion, (int)response.StatusCode, response.StatusDescription);
+
+        //            MessageBox.Show("File sucessfully uploaded.", "Upload", MessageBoxButton.OK, MessageBoxImage.Information);
+        //            this.DialogResult = true;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Error during file upload: " + ex.Message, "Upload", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        }
+        //    }
         }
     }
 }
