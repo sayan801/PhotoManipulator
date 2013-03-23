@@ -65,24 +65,24 @@ namespace PhotoServiceClient
 
         private void btnStartUpload_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFileName.Text))
-            {
-                MessageBox.Show("Specifiy a file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtFileName.Focus();
-            }
-            else if (!File.Exists(txtFileName.Text))
-            {
-                string message = string.Format("Unable to find '{0}'. Please check the file name and try again.", txtFileName.Text);
-                MessageBox.Show(message, "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtFileName.Focus();
-            }
-            else if (string.IsNullOrWhiteSpace(txtDescription.Text))
-            {
-                MessageBox.Show("Specify the description of the file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtDescription.Focus();
-            }
-            else
-            {
+            //if (string.IsNullOrWhiteSpace(txtFileName.Text))
+            //{
+            //    MessageBox.Show("Specifiy a file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            //    txtFileName.Focus();
+            //}
+            //else if (!File.Exists(txtFileName.Text))
+            //{
+            //    string message = string.Format("Unable to find '{0}'. Please check the file name and try again.", txtFileName.Text);
+            //    MessageBox.Show(message, "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            //    txtFileName.Focus();
+            //}
+            //else if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            //{
+            //    MessageBox.Show("Specify the description of the file to upload.", "Upload", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            //    txtDescription.Focus();
+            //}
+            //else
+            //{
                 try
                 {
                     // Create the REST request.
@@ -116,4 +116,4 @@ namespace PhotoServiceClient
             }
         }
     }
-}
+//}
