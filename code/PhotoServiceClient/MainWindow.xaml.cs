@@ -46,6 +46,7 @@ namespace PhotoServiceClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //this.GetPhotos();
+
         }
 
         private void btnNewPhoto_Click(object sender, RoutedEventArgs e)
