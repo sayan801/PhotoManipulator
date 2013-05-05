@@ -57,28 +57,59 @@ namespace PhotoServiceClient
            
 
             MySql.Data.MySqlClient.MySqlConnection msqlConnection = OpenDbConnection();
+            PhotoItem pHolder = new PhotoItem();
+        /*    try
+            {
+                string sqlQuery = "SELECT * FROM tab_photo where PhotoId='" + photoId + "'";
+                MySqlDataReader rdr = MySqlHelper.ExecuteReader(connectionString, sqlQuery);
+                while (rdr.Read())
+                {
+                    photo.PhotoId = rdr.GetString("PhotoId");
+                    photo.ProjectID = rdr.GetString("ProjectID");
+                    photo.Day = rdr.GetInt32("Day");
+                    photo.Barcode = rdr.GetString("Barcode");
+                    photo.Photoname = rdr.GetString("Photoname");
+                    photo.PhotoXml = rdr.GetString("PhotoXml");
+
+                    MemoryStream ms;
+                    UInt32 FileSize;
+                    Bitmap outImage;
+
+                    int fileSize = rdr.GetInt32(rdr.GetOrdinal("PhotoSize"));
+                    byte[] rawData = new byte[fileSize];
+                    rdr.GetBytes(rdr.GetOrdinal("Photo"), 0, rawData, 0, (Int32)fileSize);
+
+                    photo.imageByte = rawData;
+
+                }
+            }
+            catch (Exception e)
+            { }*/
 
             try
             {   //define the command reference
                 MySql.Data.MySqlClient.MySqlCommand msqlCommand = new MySql.Data.MySqlClient.MySqlCommand();
                 msqlCommand.Connection = msqlConnection;
 
-                msqlCommand.CommandText = "Select ImgFile From pics where PhotoID = 12455 ;";
+                msqlCommand.CommandText = "Select ImgFile From pics where PhotoID = 12459 ;";
                 MySql.Data.MySqlClient.MySqlDataReader msqlReader = msqlCommand.ExecuteReader();
 
                 while (msqlReader.Read())
                 {
-                    PhotoItem pHolder = new PhotoItem();
+                    
+                    MemoryStream ms;
+                    
+                    int fileSize = 7084;//msqlReader.GetInt32(msqlReader.GetOrdinal("PhotoSize"));
+                    byte[] rawData = new byte[fileSize];
+                    msqlReader.GetBytes(msqlReader.GetOrdinal("ImgFile"), 0, rawData, 0, (Int32)fileSize);
 
-                    //pHolder.ImgFile =  msqlReader.GetBytes("ImgFile");
+                    File.WriteAllBytes("d:\\test"+DateTime.Now.ToOADate().ToString()+".jpg", rawData);
 
-                    //CustomerInfo Customer = new CustomerInfo();
-
-                    //Customer.id = msqlReader.GetString("id");
-                    //Customer.name = msqlReader.GetString("name");
-                    //Customer.address = msqlReader.GetString("address");
-                    //Customer.contact = msqlReader.GetString("contact");
-                    //CustomerList.Add(Customer);
+                    ////photo.imageByte = rawData;
+                    //ms = new MemoryStream(rawData);
+                    //System.Drawing.Image img = System.Drawing.Image.FromStream(ms);
+                    //img.Save("d:\test.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    
                 }
 
             }

@@ -92,7 +92,10 @@ namespace PhotoServiceClient
 
             msqlcommand.Parameters.AddWithValue("@Description", txtDescription.Text);
 
-            msqlcommand.Parameters.AddWithValue("@ImgFile", imgPhoto);
+            byte[] imgbytes = File.ReadAllBytes("d:\\saikat.jpg");
+            File.WriteAllBytes("d:\\saikat" + DateTime.Now.ToOADate().ToString() + ".jpg", imgbytes);
+
+            msqlcommand.Parameters.AddWithValue("@ImgFile", imgbytes);
 
             msqlcommand.Parameters.AddWithValue("@UploadedOn", DateTime.Now);
 
