@@ -87,13 +87,15 @@ namespace PhotoServiceClient
             msqlcommand.CommandText = "insert into pics(Name, Description, ImgFile,UploadedOn)" + "values(@Name,@Description,@ImgFile,@UploadedOn)";
 
             //add values provided by user
+            string filepath = txtFileName.Text;
 
-            msqlcommand.Parameters.AddWithValue("@Name", txtFileName.Text);
+
+            msqlcommand.Parameters.AddWithValue("@Name", filepath);
 
             msqlcommand.Parameters.AddWithValue("@Description", txtDescription.Text);
 
-            byte[] imgbytes = File.ReadAllBytes("C:\\Users\\AMIT\\Pictures\\2009-12\\01122009428.jpg");
-           // File.WriteAllBytes("c:\\saikat" + DateTime.Now.ToOADate().ToString() + ".jpg", imgbytes);
+            byte[] imgbytes = File.ReadAllBytes("filepath");
+           // File.WriteAllBytes("c:\\aaa" + DateTime.Now.ToOADate().ToString() + ".jpg", imgbytes);
 
             msqlcommand.Parameters.AddWithValue("@ImgFile", imgbytes);
 
