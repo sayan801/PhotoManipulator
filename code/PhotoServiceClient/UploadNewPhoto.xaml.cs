@@ -84,7 +84,7 @@ namespace PhotoServiceClient
 
             //define the command text
 
-            msqlcommand.CommandText = "insert into pics(Name, Description, ImgFile)" + "values(@Name,@Description,@ImgFile)";
+            msqlcommand.CommandText = "insert into pics(Name, Description, ImgFile,UploadedOn)" + "values(@Name,@Description,@ImgFile,@UploadedOn)";
 
             //add values provided by user
 
@@ -93,6 +93,8 @@ namespace PhotoServiceClient
             msqlcommand.Parameters.AddWithValue("@Description", txtDescription.Text);
 
             msqlcommand.Parameters.AddWithValue("@ImgFile", imgPhoto);
+
+            msqlcommand.Parameters.AddWithValue("@UploadedOn", DateTime.Now);
 
             msqlcommand.ExecuteNonQuery();
 
