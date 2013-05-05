@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Text="File name:" Grid.Row="0" Grid.Column="0" Margin="5"></TextBlock>
-            <TextBox IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtFileName" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5"></TextBox>
+            <TextBox  IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtFileName" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5"></TextBox>
             <Button x:Name="btnBrowse" Content="Browse..." Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" Click="btnBrowse_Click"></Button>
             <TextBlock Text="Description:" Grid.Row="1" Grid.Column="0" Margin="5"></TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtDescription" Width="300" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Hidden"></TextBox>

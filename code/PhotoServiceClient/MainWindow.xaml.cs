@@ -48,7 +48,7 @@ namespace PhotoServiceClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //this.GetPhotos();
-            PhotoItem photoholder = fetchPhoto();
+          //  PhotoItem photoholder = fetchPhoto();
 
         }
 
