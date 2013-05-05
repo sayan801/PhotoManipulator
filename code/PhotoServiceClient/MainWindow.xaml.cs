@@ -43,11 +43,78 @@ namespace PhotoServiceClient
             InitializeComponent();
         }
 
+       
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //this.GetPhotos();
+            PhotoItem photoholder = fetchPhoto();
 
         }
+
+        private PhotoItem fetchPhoto()
+        {
+           
+
+            MySql.Data.MySqlClient.MySqlConnection msqlConnection = OpenDbConnection();
+
+            try
+            {   //define the command reference
+                MySql.Data.MySqlClient.MySqlCommand msqlCommand = new MySql.Data.MySqlClient.MySqlCommand();
+                msqlCommand.Connection = msqlConnection;
+
+                msqlCommand.CommandText = "Select ImgFile From pics where PhotoID = 12455 ;";
+                MySql.Data.MySqlClient.MySqlDataReader msqlReader = msqlCommand.ExecuteReader();
+
+                while (msqlReader.Read())
+                {
+                    PhotoItem pHolder = new PhotoItem();
+
+                    //pHolder.ImgFile =  msqlReader.GetBytes("ImgFile");
+
+                    //CustomerInfo Customer = new CustomerInfo();
+
+                    //Customer.id = msqlReader.GetString("id");
+                    //Customer.name = msqlReader.GetString("name");
+                    //Customer.address = msqlReader.GetString("address");
+                    //Customer.contact = msqlReader.GetString("contact");
+                    //CustomerList.Add(Customer);
+                }
+
+            }
+            catch (Exception er)
+            {
+            }
+            finally
+            {
+                //always close the connection
+                msqlConnection.Close();
+            }
+
+            return pHolder;
+
+        }
+
+        #region open and define mysql connection
+
+        static string passwordCurrent = "technicise";
+        static string dbmsCurrent = "photodb";
+
+        private static MySql.Data.MySqlClient.MySqlConnection OpenDbConnection()
+        {
+            MySql.Data.MySqlClient.MySqlConnection msqlConnection = null;
+
+            msqlConnection = new MySql.Data.MySqlClient.MySqlConnection("server=localhost;user id=root;Password=" + passwordCurrent + ";database=" + dbmsCurrent + ";persist security info=False");
+
+            //open the connection
+            if (msqlConnection.State != System.Data.ConnectionState.Open)
+                msqlConnection.Open();
+
+            return msqlConnection;
+        }
+
+
+        #endregion
 
         private void btnNewPhoto_Click(object sender, RoutedEventArgs e)
         {
